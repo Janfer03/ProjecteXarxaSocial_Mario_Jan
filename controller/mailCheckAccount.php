@@ -8,8 +8,9 @@ if ($_SERVER["REQUEST_METHOD"]== "GET")
         $mail = $_GET["mail"];
         if (verifyAccount($code, $mail) == true){
             updateActive($mail);
-            header('Location: ../index.php?verificationMail=success&register=n');
+            header('Location: C:/Users/mruiz/Desktop/DAM2_2/M7/PHP/projectePHP/ProjecteXarxaSocial_Mario_Jan/index.php?verificationMail=success&register=n');
             exit();
         }
+        //posibilidad de gestionar si no se verifica el correo
     }
 }

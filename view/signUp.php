@@ -36,18 +36,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'userFirstName' => $firstName,
             'userLastName' => $lastName,
             'passHash' => password_hash($pass, PASSWORD_BCRYPT),
-            //'activationCode' => 1
-            //'activationCode' => generateActivationCode()
+            'activationCode' => generateActivationCode()
         ];
 
         // Intentar registrar al usuario
         $rslt = insertUser($user);
         if ($rslt === true) {
-            //sendEmail($user, "verification");
-            //header('Location: ../index.php?register=success&verificationMail=n');
-            header('Location: ../index.php');
+            //el correo envia un enlace a otro php y este es el que luego redirige al index.php
+            sendEmail($user, "verification");
+            header('Location: ../index.php?register=success&verificationMail=n');
             exit();
-        } else {
+        } 
+        else {
             $msgError = "Error al crear l'usuari. Si us plau intenteulo un altre cop.";
         }
     }
@@ -64,9 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Sign Up</title>
     <meta charset="utf-8">
-    <meta name="author" content="Cetisi">
+    <meta name="author" content="StarDust">
     <meta name="description" content="description">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/Star_Dust.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/index.css">
@@ -77,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <header>
             <img src="../img/Star_Dust.png" alt="Logo" class="logo">
             <h1 class="title">Sign Up</h1>
-            <p class="subtitle">Crea tu cuenta en EduForum</p>
+            <p class="subtitle">Crea tu cuenta en StarDust</p>
         </header>
 
         <div class="form-container">

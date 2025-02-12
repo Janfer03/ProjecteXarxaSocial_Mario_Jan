@@ -56,13 +56,14 @@ function insertUserDB($user)
       if ($userExists == true) {
           $result = "User or email already exist";
       } else {
-          $sql = 'INSERT INTO users (mail, username, passHash, userFirstName, userLastName, creationDate, removeDate, lastSignIn, active) 
-                  VALUES (:mail, :username ,:passHash, :userFirstName, :userLastName, now(), null, null, 1)';
+          $sql = 'INSERT INTO users (mail, username, passHash, userFirstName, userLastName, creationDate, removeDate, lastSignIn, active, activationCode) 
+                  VALUES (:mail, :username ,:passHash, :userFirstName, :userLastName, now(), null, null, 0, :activationCode)';
           $mail = $user['email'];
           $pass = $user['passHash'];
           $username = $user['username'];
           $userFirstName = $user['userFirstName'];
           $userLastName = $user['userLastName'];
+          $activationCode = $user['activationCode'];
 
           try {
               $resultat = $conn->prepare($sql);
@@ -71,7 +72,8 @@ function insertUserDB($user)
                   ':username' => $username,
                   ':passHash' => $pass,
                   ':userFirstName' => $userFirstName,
-                  ':userLastName' => $userLastName
+                  ':userLastName' => $userLastName,
+                  ':activationCode' => $activationCode
               ]);
 
               if ($resultat) {
