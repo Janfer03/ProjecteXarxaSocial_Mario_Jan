@@ -12,8 +12,9 @@ $errorBox = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
 
+    /************************************RESETAR PASS************************************/
     /*
-    if (!isset($_POST["resetPassMail"])) {
+   if (!isset($_POST["resetPassMail"])) {
         $user = $_POST["user"];
         $pass = $_POST["password"];
         $result = loginUser($user, $pass);
@@ -31,12 +32,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (verifyExistentUser($_POST["resetPassMail"]) == true) {
             $user = [
-            'email' => $_POST["resetPassMail"],
-            'resetPassCode' => generateResetPassCode($_POST["resetPassMail"])
+                'email' => $_POST["resetPassMail"],
+                'resetPassCode' => generateResetPassCode($_POST["resetPassMail"])
             ];
             sendEmail($user, "password");
         }
     }*/
+    
+
+    /************************************LOG IN************************************/
 
     $user = $_POST["user"];
     $pass = $_POST["password"];
@@ -64,6 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //mirem si el registre s'ha completat correctament
         if (isset($_GET["register"]))
         $_GET["register"] == "success" ? $msgError = "<div class='error-box'>Registre correcte</div>" : '';
+        //cridem al script per genera el codi y enviar el mail 
+        //header('Location: ./view/mailing.php');
         if (isset($_GET["verificationMail"]))
         $_GET["verificationMail"] == "success" ? $msgError = "<div class='error-box'>Correu verificat correctament</div>" : '';
     }
@@ -76,30 +82,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <title>Star Dust - Red Social de Pelis y Series</title>
         <meta charset="utf-8">
-        <meta name="author" content="Cetisi">
+        <meta name="author" content="StarDust">
         <meta name="description" content="Comparte tus opiniones sobre películas y series en Star Dust">
         <meta name="keywords" content="foro, películas, series, opiniones, comunidad, red social">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="./img/logo-white.png">
+        <link rel="icon" href="./img/Star_Dust.png">
         <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/index.css">
     </head>
 
+    
+
     <body id="screen">
         <section class="form-box">
-            
-            <!-- Reset password   -->
-             <!-- <form class="reset-password-form inactive" action="<?php htmlspecialchars($_SERVER["REQUEST_METHOD"]) ?>" method="POST">
-                <div class="input-box" id="input-email">
-                    <label for="email"><ion-icon name="person-outline"></ion-icon></label>
-                    <input type="text" id="resetPassMail" name="resetPassMail" required="true" placeholder="">
-                    <span>Email</span>
-                    <p id="userError" class="inactive"></p>
-                </div>
-                <button class="button-86" id="reset-pass-form-button">Submit</button>
-            </form>  -->
-           <!-- Fi reset password  -->
           
             <div id="main-container">
             <!-- Encabezado -->
@@ -111,6 +107,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!-- Caja de login -->
             <section class="form-box">
+
+                <!-- Reset password -->
+                
+                <!-- <form class="reset-password-form inactive" action="<?php htmlspecialchars($_SERVER["REQUEST_METHOD"]) ?>" method="POST">
+                    <div class="input-box" id="input-email">
+                        <label for="email"><ion-icon name="person-outline"></ion-icon></label>
+                        <input type="text" id="resetPassMail" name="resetPassMail" required="true" placeholder="">
+                        <span>Email</span>
+                        <p id="userError" class="inactive"></p>
+                    </div>
+                    <button class="button-86" id="reset-pass-form-button">Submit</button>
+                </form>  -->
+                <!-- Fi reset password -->
+
+
                 <div class="form-container">
                     <h1 class="form-title">Inicia Sesión</h1>
                     <?= $msgError ?>
@@ -129,6 +140,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p><a href="#" class="link-light">¿Olvidaste tu contraseña?</a></p>
                         <p>¿No tienes cuenta? <a href="./view/signUp.php" class="link-light">Regístrate</a></p>
                     </div>
+
+                   
                 </div>
         </section>
 
@@ -140,4 +153,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="falling-stars"></div>
     </body>
     <script src="./js/stars.js"></script>
+    <script src="./js/index.js"></script>
 </html>
